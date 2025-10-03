@@ -1,8 +1,9 @@
-param identityName string
 param scriptIdentity string
 
+var identityName= last(split(scriptIdentity,'/'))
+
 resource cleanupScript 'Microsoft.Resources/deploymentScripts@2023-08-01' = {
-  name: 'cleanup-role-assignment'
+  name: 'cleanup-script-id'
   kind: 'AzureCLI'
   location: resourceGroup().location
     identity: {

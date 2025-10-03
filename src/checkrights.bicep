@@ -59,7 +59,6 @@ module storageaccount 'storageaccount.bicep'={
 module cleanupscript 'cleanupscript.bicep' = {
   scope: resourceGroup(rgname)
   params: {
-        identityName:idname
         scriptIdentity:scriptid.outputs.resourceId
   }
   dependsOn:[
