@@ -1,0 +1,59 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "eligibleAuthorizations": {
+      "value": [
+        {
+          "roleDefinitionId": "36243c78-bf99-498c-9df9-86d9f8d28608",
+          "justInTimeAccessPolicy": {
+            "multiFactorAuthProvider": "Azure",
+            "maximumActivationDuration": "PT4H",
+            "managedByTenantApprovers": []
+          },
+          "principalIdDisplayName": "ConXioN Governance, Lubon modified",
+          "principalId": "813990ae-4413-4fa1-952c-ebf38dedf49c"
+        }
+      ]
+    },
+    "mspOfferDescription": {
+      "value": "CXN with lubon requirements"
+    },
+    "authorizations": {
+      "value": [
+        {
+          "roleDefinitionId": "ea4bfff8-7fb4-485a-aadd-d4129a0ffaa6",
+          "principalIdDisplayName": "ConXioN Tier 1 Support, Lubon modified",
+          "principalId": "81c51b9e-4bb4-47c3-824f-1a736db488f6"
+        },
+        {
+          "roleDefinitionId": "a795c7a0-d4a2-40c1-ae25-d81f01202912",
+          "principalIdDisplayName": "ConXioN Tier 1 Support, Lubon modified",
+          "principalId": "81c51b9e-4bb4-47c3-824f-1a736db488f6"
+        },
+        {
+          "principalIdDisplayName": "ConXioN Governance, Lubon modified",
+          "principalId": "813990ae-4413-4fa1-952c-ebf38dedf49c",
+          "roleDefinitionId": "18d7d88d-d35e-4fb5-a5c3-7773c20a72d9",
+          "delegatedRoleDefinitionIds": [
+            "b24988ac-6180-42a0-ab88-20f7382dd24c"
+    ]
+}
+       {
+          "principalIdDisplayName": "ConXioN Governance, LB Direct",
+          "principalId": "1c82289c-09ed-4be2-a976-e7b3b367187f",
+          "roleDefinitionId": "18d7d88d-d35e-4fb5-a5c3-7773c20a72d9",
+          "delegatedRoleDefinitionIds": [
+            "b24988ac-6180-42a0-ab88-20f7382dd24c"
+    ]
+}
+      ]
+    },
+    "managedByTenantId": {
+      "value": "a4346625-ecc9-4a10-bb76-26184a0e862b"
+    },
+    "mspOfferName": {
+      "value": "CXN with lubon requirements"
+    }
+  }
+}

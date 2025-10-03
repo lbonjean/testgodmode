@@ -1,0 +1,123 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.37.4.10188",
+      "templateHash": "16764779923677170777"
+    }
+  },
+  "parameters": {
+    "mspOfferName": {
+      "type": "string",
+      "metadata": {
+        "description": "Specify a unique name for your offer"
+      }
+    },
+    "mspOfferDescription": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the Managed Service Provider offering"
+      }
+    },
+    "managedByTenantId": {
+      "type": "string",
+      "metadata": {
+        "description": "Specify the tenant id of the Managed Service Provider"
+      }
+    },
+    "authorizations": {
+      "type": "array",
+      "metadata": {
+        "description": "Specify an array of objects, containing tuples of Azure Active Directory principalId, a Azure roleDefinitionId, and an optional principalIdDisplayName. The roleDefinition specified is granted to the principalId in the provider's Active Directory and the principalIdDisplayName is visible to customers."
+      }
+    },
+    "eligibleAuthorizations": {
+      "type": "array",
+      "metadata": {
+        "description": "Provide the auhtorizations that will have just-in-time role assignments on customer environments"
+      }
+    }
+  },
+  "variables": {
+    "RegistrationName": "[guid(parameters('mspOfferName'))]",
+    "AssignmentName": "[guid(parameters('mspOfferName'))]"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.ManagedServices/registrationDefinitions",
+      "apiVersion": "2020-02-01-preview",
+      "name": "[variables('RegistrationName')]",
+      "properties": {
+        "registrationDefinitionName": "[parameters('mspOfferName')]",
+        "description": "[parameters('mspOfferDescription')]",
+        "managedByTenantId": "[parameters('managedByTenantId')]",
+        "authorizations": "[parameters('authorizations')]",
+        "eligibleAuthorizations": "[parameters('eligibleAuthorizations')]"
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2022-09-01",
+      "name": "[variables('AssignmentName')]",
+      "location": "[deployment().location]",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "DefinitionResourceId": {
+            "value": "[subscriptionResourceId('Microsoft.ManagedServices/registrationDefinitions', variables('RegistrationName'))]"
+          },
+          "AssignmentName": {
+            "value": "[variables('AssignmentName')]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.37.4.10188",
+              "templateHash": "11991219997782004810"
+            }
+          },
+          "parameters": {
+            "DefinitionResourceId": {
+              "type": "string"
+            },
+            "AssignmentName": {
+              "type": "string"
+            }
+          },
+          "resources": [
+            {
+              "type": "Microsoft.ManagedServices/registrationAssignments",
+              "apiVersion": "2020-02-01-preview",
+              "name": "[parameters('AssignmentName')]",
+              "properties": {
+                "registrationDefinitionId": "[parameters('DefinitionResourceId')]"
+              }
+            }
+          ]
+        }
+      },
+      "dependsOn": [
+        "[subscriptionResourceId('Microsoft.ManagedServices/registrationDefinitions', variables('RegistrationName'))]"
+      ]
+    }
+  ],
+  "outputs": {
+    "mspOfferName": {
+      "type": "string",
+      "value": "[format('Managed by {0}', parameters('mspOfferName'))]"
+    },
+    "authorizations": {
+      "type": "array",
+      "value": "[parameters('authorizations')]"
+    }
+  }
+}
