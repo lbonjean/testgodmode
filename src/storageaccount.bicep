@@ -1,8 +1,7 @@
 param prefix string
 param uniquePart string
-param groupid string
 
-var saname = take('${prefix}sa${uniquePart}', 24)
+var saname = toLower(take('${prefix}sa${uniquePart}', 24))
 
 module storageaccount 'br/public:avm/res/storage/storage-account:0.26.2' = {
   params: {
@@ -10,12 +9,12 @@ module storageaccount 'br/public:avm/res/storage/storage-account:0.26.2' = {
     location: resourceGroup().location
     skuName: 'Standard_LRS'
     allowBlobPublicAccess: true
-    roleAssignments:[
-      {
-        principalId: groupid
-        roleDefinitionIdOrName: 'Storage Blob Data Reader'
-      }
-    ]
+    // roleAssignments:[
+    //   {
+    //     principalId: groupid
+    //     roleDefinitionIdOrName: 'Storage Blob Data Reader'
+    //   }
+    // ]
     networkAcls: {
       defaultAction: 'Allow'
     }

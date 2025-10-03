@@ -6,7 +6,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.37.4.10188",
-      "templateHash": "15652676547301532527"
+      "templateHash": "15252710792615949639"
     }
   },
   "parameters": {
@@ -1004,8 +1004,8 @@
         },
         "mode": "Incremental",
         "parameters": {
-          "name": {
-            "value": "[guid(subscription().id, 'scriptpermissions.bicep')]"
+          "delegatedManagedIdentityResourceId": {
+            "value": "[reference('scriptid').outputs.resourceId.value]"
           },
           "principalId": {
             "value": "[reference('scriptid').outputs.principalId.value]"
@@ -1018,14 +1018,14 @@
             "_generator": {
               "name": "bicep",
               "version": "0.37.4.10188",
-              "templateHash": "8425337235639112612"
+              "templateHash": "8858121487627957223"
             }
           },
           "parameters": {
-            "name": {
+            "principalId": {
               "type": "string"
             },
-            "principalId": {
+            "delegatedManagedIdentityResourceId": {
               "type": "string"
             }
           },
@@ -1033,11 +1033,12 @@
             {
               "type": "Microsoft.Authorization/roleAssignments",
               "apiVersion": "2022-04-01",
-              "name": "[parameters('name')]",
+              "name": "[guid(subscription().id, parameters('principalId'), 'contributor-role')]",
               "properties": {
                 "principalId": "[parameters('principalId')]",
                 "roleDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'b24988ac-6180-42a0-ab88-20f7382dd24c')]",
-                "principalType": "ServicePrincipal"
+                "principalType": "ServicePrincipal",
+                "delegatedManagedIdentityResourceId": "[parameters('delegatedManagedIdentityResourceId')]"
               }
             }
           ]
@@ -1137,7 +1138,7 @@
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2022-09-01",
       "name": "[format('storageaccount-{0}', uniqueString('storageaccount', deployment().name))]",
-      "resourceGroup": "[format('resourcegroup-{0}', uniqueString('resourcegroup', deployment().name))]",
+      "resourceGroup": "[variables('rgname')]",
       "properties": {
         "expressionEvaluationOptions": {
           "scope": "inner"
@@ -1162,7 +1163,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.37.4.10188",
-              "templateHash": "12455466545344582743"
+              "templateHash": "16818959283971923753"
             }
           },
           "parameters": {
@@ -1177,7 +1178,7 @@
             }
           },
           "variables": {
-            "saname": "[take(format('{0}sa{1}', parameters('prefix'), parameters('uniquePart')), 24)]"
+            "saname": "[toLower(take(format('{0}sa{1}', parameters('prefix'), parameters('uniquePart')), 24))]"
           },
           "resources": {
             "storageaccount": {
@@ -1201,14 +1202,6 @@
                   },
                   "allowBlobPublicAccess": {
                     "value": true
-                  },
-                  "roleAssignments": {
-                    "value": [
-                      {
-                        "principalId": "[parameters('groupid')]",
-                        "roleDefinitionIdOrName": "Storage Blob Data Reader"
-                      }
-                    ]
                   },
                   "networkAcls": {
                     "value": {
@@ -7088,8 +7081,64 @@
         }
       },
       "dependsOn": [
-        "resourcegroup",
         "script1"
+      ]
+    },
+    "cleanup": {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2022-09-01",
+      "name": "[format('cleanup-{0}', uniqueString('cleanup', deployment().name))]",
+      "location": "[deployment().location]",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "principalId": {
+            "value": "[reference('scriptid').outputs.principalId.value]"
+          },
+          "delegatedManagedIdentityResourceId": {
+            "value": "[reference('scriptid').outputs.resourceId.value]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.37.4.10188",
+              "templateHash": "8858121487627957223"
+            }
+          },
+          "parameters": {
+            "principalId": {
+              "type": "string"
+            },
+            "delegatedManagedIdentityResourceId": {
+              "type": "string"
+            }
+          },
+          "resources": [
+            {
+              "type": "Microsoft.Authorization/roleAssignments",
+              "apiVersion": "2022-04-01",
+              "name": "[guid(subscription().id, parameters('principalId'), 'contributor-role')]",
+              "properties": {
+                "principalId": "[parameters('principalId')]",
+                "roleDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'b24988ac-6180-42a0-ab88-20f7382dd24c')]",
+                "principalType": "ServicePrincipal",
+                "delegatedManagedIdentityResourceId": "[parameters('delegatedManagedIdentityResourceId')]"
+              }
+            }
+          ]
+        }
+      },
+      "dependsOn": [
+        "script1",
+        "scriptid",
+        "storageaccount"
       ]
     }
   }
