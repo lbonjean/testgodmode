@@ -9,12 +9,6 @@ module storageaccount 'br/public:avm/res/storage/storage-account:0.26.2' = {
     location: resourceGroup().location
     skuName: 'Standard_LRS'
     allowBlobPublicAccess: true
-    // roleAssignments:[
-    //   {
-    //     principalId: groupid
-    //     roleDefinitionIdOrName: 'Storage Blob Data Reader'
-    //   }
-    // ]
     networkAcls: {
       defaultAction: 'Allow'
     }
