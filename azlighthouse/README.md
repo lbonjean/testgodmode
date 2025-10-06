@@ -1,12 +1,9 @@
 ## Deploy to Azure
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Flbonjean%2Ftestgodmode%2Fmain%2Fazlighthouse%2Fmain.json)
+Button deploys additional lighthouse to subscription. No paramteres are required, necessear delegations are in the defaults.
+
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Flbonjean%2Ftestgodmode%2Fmain%2Fazlighthouse%2Fazlcxnlubon.json)
 
 
 
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Flbonjean%2Ftestgodmode%2Fmain%2Fazlighthouse%2Fmain.json/createUIDefinitionUri/https%3A%2F%2Fraw.githubusercontent.com%2Flbonjean%2Ftestgodmode%2Fmain%2Fazlighthouse%2FLubviacxn.json)
-
-### Parameters
-Deze deployment gebruikt de parameters uit `Lubviacxn.json`.
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Flbonjean%2Ftestgodmode%2Fmain%2Fazlighthouse%2Fmain.json/createUIDefinitionUri/https%3A%2F%2Fraw.githubusercontent.com%2Flbonjean%2Ftestgodmode%2Fmain%2Fazlighthouse%2FcreateUiDefinition.json)
