@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.37.4.10188",
-      "templateHash": "398334014386566252"
+      "templateHash": "17083094013715511666"
     }
   },
   "parameters": {
@@ -42,23 +42,6 @@
           "roleDefinitionId": "a795c7a0-d4a2-40c1-ae25-d81f01202912",
           "principalIdDisplayName": "ConXioN Tier 1 Support, Lubon modified",
           "principalId": "81c51b9e-4bb4-47c3-824f-1a736db488f6"
-        },
-        {
-          "principalIdDisplayName": "ConXioN Governance, Lubon modified",
-          "principalId": "813990ae-4413-4fa1-952c-ebf38dedf49c",
-          "roleDefinitionId": "18d7d88d-d35e-4fb5-a5c3-7773c20a72d9",
-          "delegatedRoleDefinitionIds": [
-            "b24988ac-6180-42a0-ab88-20f7382dd24c",
-            "ba92f5b4-2d11-453d-a403-e96b0029c9fe",
-            "2a2b9908-6ea1-4ae2-8e65-a410df84e7d1",
-            "0c867c2a-1d8c-454a-a3db-ab2ea1bdc8bb",
-            "a7264617-510b-434b-a828-9731dc254ea7",
-            "aba4ae5f-2193-4029-9191-0cb91df5e314",
-            "0a9a7e1f-b9d0-4cc4-a60d-0319b160aaa3",
-            "76199698-9eea-4c19-bc75-cec21354c6b6",
-            "19e7f393-937e-4f77-808e-94535e297925",
-            "974c5e8b-45b9-4653-ba55-5f855dd0fb88"
-          ]
         }
       ],
       "metadata": {
